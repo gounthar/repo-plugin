@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 package hudson.plugins.repo;
-
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.model.Run;
@@ -51,8 +51,7 @@ import org.xml.sax.SAXException;
 
 import com.thoughtworks.xstream.io.StreamException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Utility functions to generate and parse a file listing the differences
@@ -109,7 +108,7 @@ class ChangeLog extends ChangeLogParser {
 	 *             commands to run in a forked process.
 	 */
 	private static List<ChangeLogEntry> generateChangeLog(
-			@Nonnull final RevisionState currentState,
+			@NonNull final RevisionState currentState,
 			@Nullable final RevisionState previousState, final Launcher launcher,
 			final FilePath workspace, final boolean showAllChanges)
 			throws IOException,
@@ -293,7 +292,7 @@ class ChangeLog extends ChangeLogParser {
 	 *             is thrown if we are interrupted while waiting on the git
 	 *             commands to run in a forked process.
 	 */
-	static void saveChangeLog(@Nonnull final RevisionState currentState,
+	static void saveChangeLog(@NonNull final RevisionState currentState,
 							  @Nullable final RevisionState previousState, final File changelogFile,
 							  final Launcher launcher, final FilePath workspace,
 							  final boolean showAllChanges)

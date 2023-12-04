@@ -43,6 +43,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.AbortException;
 import hudson.EnvVars;
 import hudson.Extension;
@@ -73,9 +74,8 @@ import org.kohsuke.stapler.export.ExportedBean;
 import hudson.scm.PollingResult.Change;
 import hudson.util.FormValidation;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * The main entrypoint of the plugin. This class contains code to store user
@@ -804,8 +804,8 @@ public class RepoScm extends SCM implements Serializable {
 
 	@Override
 	public SCMRevisionState calcRevisionsFromBuild(
-			@Nonnull final Run<?, ?> build, @Nullable final FilePath workspace,
-			@Nullable final Launcher launcher, @Nonnull final TaskListener listener
+			@NonNull final Run<?, ?> build, @Nullable final FilePath workspace,
+			@Nullable final Launcher launcher, @NonNull final TaskListener listener
 			) throws IOException, InterruptedException {
 		// We add our SCMRevisionState from within checkout, so this shouldn't
 		// be called often. However it will be called if this is the first
@@ -836,9 +836,9 @@ public class RepoScm extends SCM implements Serializable {
 
 	@Override
 	public PollingResult compareRemoteRevisionWith(
-			@Nonnull final Job<?, ?> job, @Nullable final Launcher launcher,
-			@Nullable final FilePath workspace, @Nonnull final TaskListener listener,
-			@Nonnull final SCMRevisionState baseline) throws IOException,
+			@NonNull final Job<?, ?> job, @Nullable final Launcher launcher,
+			@Nullable final FilePath workspace, @NonNull final TaskListener listener,
+			@NonNull final SCMRevisionState baseline) throws IOException,
 			InterruptedException {
 		SCMRevisionState myBaseline = baseline;
 		final EnvVars env = getEnvVars(null, job);
@@ -895,8 +895,8 @@ public class RepoScm extends SCM implements Serializable {
 
 	@Override
 	public void checkout(
-			@Nonnull final Run<?, ?> build, @Nonnull final Launcher launcher,
-			@Nonnull final FilePath workspace, @Nonnull final TaskListener listener,
+			@NonNull final Run<?, ?> build, @NonNull final Launcher launcher,
+			@NonNull final FilePath workspace, @NonNull final TaskListener listener,
 			@CheckForNull final File changelogFile, @CheckForNull final SCMRevisionState baseline)
 			throws IOException, InterruptedException {
 
@@ -965,7 +965,7 @@ public class RepoScm extends SCM implements Serializable {
 		}
 	}
 
-	private int doSync(final Launcher launcher, @Nonnull final FilePath workspace,
+	private int doSync(final Launcher launcher, @NonNull final FilePath workspace,
 			final OutputStream logger, final EnvVars env)
 		throws IOException, InterruptedException {
 		final List<String> commands = new ArrayList<String>(4);
@@ -1035,7 +1035,7 @@ public class RepoScm extends SCM implements Serializable {
 	}
 
 	private boolean checkoutCode(final Launcher launcher,
-			@Nonnull final FilePath workspace,
+			@NonNull final FilePath workspace,
 			final EnvVars env,
 			final OutputStream logger)
 			throws IOException, InterruptedException {
@@ -1178,8 +1178,8 @@ public class RepoScm extends SCM implements Serializable {
 	 */
 	@Override
 	public void buildEnvironment(
-			@Nonnull final Run<?, ?> build,
-			@Nonnull final java.util.Map<String, String> env) {
+			@NonNull final Run<?, ?> build,
+			@NonNull final java.util.Map<String, String> env) {
 		final Job<?, ?> job = build.getParent();
 		final EnvVars jobEnv = getEnvVars(null, job);
 
@@ -1246,7 +1246,7 @@ public class RepoScm extends SCM implements Serializable {
 				&& StringUtils.equals(state.getFile(), file);
     }
 
-	@Nonnull
+	@NonNull
 	private SCMRevisionState getState(final Run<?, ?> build,
 			final String expandedManifestUrl,
 			final String expandedManifestBranch,
@@ -1268,7 +1268,7 @@ public class RepoScm extends SCM implements Serializable {
 		return SCMRevisionState.NONE;
 	}
 
-	@Nonnull
+	@NonNull
 	private SCMRevisionState getLastState(final Run<?, ?> lastBuild,
 			final String expandedManifestUrl,
 			final String expandedManifestBranch,
@@ -1299,7 +1299,7 @@ public class RepoScm extends SCM implements Serializable {
 		return (DescriptorImpl) super.getDescriptor();
 	}
 
-	@Nonnull
+	@NonNull
 	@Override
 	public String getKey() {
 		return new StringBuilder("repo")

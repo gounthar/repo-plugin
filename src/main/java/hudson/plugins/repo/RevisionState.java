@@ -37,7 +37,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 import jenkins.util.xml.XMLUtils;
 import org.w3c.dom.Document;
